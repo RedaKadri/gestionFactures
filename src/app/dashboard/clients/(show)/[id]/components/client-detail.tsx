@@ -5,7 +5,7 @@ import { ClientDelete } from './client-delete';
 
 export default function ClientDetail({ client }: { client: any }) {
 	return (
-		<Card className='w-1/4'>
+		<Card className='min-w-[340px] mt-12'>
 			<CardHeader>
 				<CardTitle>Client details</CardTitle>
 			</CardHeader>

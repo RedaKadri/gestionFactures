@@ -8,7 +8,7 @@ import {
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
-} from '@radix-ui/react-dropdown-menu';
+} from '@/components/ui/dropdown-menu';
 import { signOut } from '@/actions/auth.action';
 import Link from 'next/link';
 
@@ -22,15 +22,9 @@ function Header() {
 							<AlignLeft />
 						</Button>
 					</DropdownMenuTrigger>
-					<DropdownMenuContent
-						align='start'
-						className='border border-secondary rounded-md p-1 m-2 ms-0 w-32 bg-background'
-					>
-						<DropdownMenuItem className='hover:bg-secondary outline-none rounded-md px-2 py-1'>
+					<DropdownMenuContent align='start'>
+						<DropdownMenuItem>
 							<Link href={'/dashboard/clients'}>Clients</Link>
-						</DropdownMenuItem>
-						<DropdownMenuItem className='hover:bg-secondary outline-none rounded-md px-2 py-1'>
-							<Link href={'/dashboard/factures'}>Factures</Link>
 						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>

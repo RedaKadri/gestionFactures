@@ -1,6 +1,6 @@
 import { validateRequest } from '@/lib/auth';
 import { redirect } from 'next/navigation';
-import { Archive, ArchiveRestore, UserRoundPlus, UsersRound } from 'lucide-react';
+import { UserRoundPlus, UsersRound } from 'lucide-react';
 import NavigationCard from '@/components/NavigationCard';
 
 const CardInfo = [
@@ -18,20 +18,6 @@ const CardInfo = [
 		link: '/dashboard/clients',
 		action: 'Accéder aux Clients',
 	},
-	{
-		title: 'Créer une Facture',
-		icon: <ArchiveRestore />,
-		content: 'Générez une nouvelle facture pour un client.',
-		link: '/dashboard/factures/create',
-		action: 'Créer une Facture',
-	},
-	{
-		title: 'Gérer les Factures',
-		icon: <Archive />,
-		content: 'Gérez et visualisez vos factures clients.',
-		link: '/dashboard/factures',
-		action: 'Accéder aux Factures',
-	},
 ];
 
 async function Dashboard() {
@@ -40,7 +26,7 @@ async function Dashboard() {
 		return redirect('/login');
 	}
 	return (
-		<main>
+		<main className='container'>
 			<h1 className='text-4xl font-bold m-4 ms-0 font-mono'>Navigation</h1>
 			<div className='grid grid-cols-1 md:grid-cols-2 gap-4 m-2'>
 				{CardInfo.map((card) => (

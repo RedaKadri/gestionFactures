@@ -41,7 +41,20 @@ export async function getClient(id: string): Promise<any> {
 		.having(eq(FactureTable.clientId, id))
 		.orderBy(desc(FactureTable.issueYear));
 
-	return { client, factures };
+	const payments = await db
+		.select({
+			id: paymentTable.id,
+			factureId: paymentTable.factureId,
+			amount: paymentTable.amount,
+			issueYear: FactureTable.issueYear,
+			updatedAt: paymentTable.updatedAt,
+		})
+		.from(paymentTable)
+		.leftJoin(FactureTable, eq(FactureTable.id, paymentTable.factureId))
+		.where(eq(FactureTable.clientId, id))
+		.orderBy(desc(paymentTable.updatedAt));
+
+	return { client, factures, payments };
 }
 
 export async function getYears(): Promise<any> {

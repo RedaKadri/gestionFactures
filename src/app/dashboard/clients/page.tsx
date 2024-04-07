@@ -11,7 +11,7 @@ async function clientPage() {
 	const years = await getYears();
 
 	return (
-		<div className='container mx-auto py-4'>
+		<div className='mx-auto py-4 container'>
 			<ClientMain years={years} />
 		</div>
 	);

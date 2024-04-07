@@ -9,7 +9,7 @@ export default function DashboardLayout({
 	return (
 		<SWRProvider>
 			<Header />
-			<main className='container'>{children}</main>
+			<main>{children}</main>
 		</SWRProvider>
 	);
 }

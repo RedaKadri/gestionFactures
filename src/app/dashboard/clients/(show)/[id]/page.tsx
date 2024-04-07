@@ -5,17 +5,18 @@ import { clientFactureColumns } from './components/client-facture-columns';
 import ClientDetail from './components/client-detail';
 import { validateRequest } from '@/lib/auth';
 import { redirect } from 'next/navigation';
+import { clientPaymentColumns } from './components/client-payment-columns';
 
 export default async function page({ params }: { params: { id: string } }) {
 	const { user } = await validateRequest();
 	if (!user) return redirect('/login');
 
 	const { id } = params;
-	const { client, factures } = await getClient(id);
+	const { client, factures, payments } = await getClient(id);
 
 	return (
-		<div className='flex items-start gap-16 mt-16'>
-			<Tabs defaultValue='factures' className='w-2/3'>
+		<div className='flex items-start gap-10 mt-5 justify-center flex-wrap'>
+			<Tabs defaultValue='factures' className='2xl:w-[60vw]'>
 				<TabsList>
 					<TabsTrigger value='factures'>Factures</TabsTrigger>
 					<TabsTrigger value='payments'>Payments</TabsTrigger>
@@ -23,7 +24,9 @@ export default async function page({ params }: { params: { id: string } }) {
 				<TabsContent value='factures'>
 					<ClientFactureTable columns={clientFactureColumns} data={factures} />
 				</TabsContent>
-				<TabsContent value='payments'>payments table</TabsContent>
+				<TabsContent value='payments'>
+					<ClientFactureTable columns={clientPaymentColumns} data={payments} />
+				</TabsContent>
 			</Tabs>
 
 			<ClientDetail client={client} />
