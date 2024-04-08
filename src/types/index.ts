@@ -3,8 +3,8 @@ import { z } from 'zod';
 export const RegisterSchema = z
 	.object({
 		username: z.string().min(2).max(50),
-		password: z.string().min(5, { message: 'Password must be at least 8 characters long' }),
-		confirmPassword: z.string().min(5, { message: 'Password must be at least 8 characters long' }),
+		password: z.string().min(5, { message: 'Password must be at least 5 characters long' }),
+		confirmPassword: z.string().min(5, { message: 'Password must be at least 5 characters long' }),
 	})
 	.refine((data) => data.password === data.confirmPassword, {
 		message: 'Passwords do not match',
@@ -13,11 +13,18 @@ export const RegisterSchema = z
 
 export const LoginSchema = z.object({
 	username: z.string().min(2).max(50),
-	password: z.string().min(5, { message: 'Password must be at least 8 characters long' }),
+	password: z.string().min(5, { message: 'Password must be at least 5 characters long' }),
 });
 
 export const ClientSchema = z.object({
-	id: z.string(),
-	name: z.string(),
+	id: z.string().min(1),
+	name: z.string().min(3),
 	tel: z.string().min(8),
+});
+
+export const FacutreSchema = z.object({
+	id: z.string().min(1),
+	clientId: z.string(),
+	totalAmount: z.number().min(0),
+	issueYear: z.number(),
 });
