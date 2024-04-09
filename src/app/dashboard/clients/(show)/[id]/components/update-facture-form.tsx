@@ -1,6 +1,6 @@
 'use client';
 
-import { createFacture } from '@/actions/facture.action';
+import { updateFacture } from '@/actions/facture.action';
 import { Button } from '@/components/ui/button';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -10,15 +10,15 @@ import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-const CreateFactureForm = ({ client }: { client: any }) => {
+const UpdateFactureForm = ({ facture }: { facture: any }) => {
 	const router = useRouter();
 
 	const form = useForm({
 		defaultValues: {
-			id: '',
-			clientId: client.id,
-			totalAmount: 0,
-			issueYear: new Date().getFullYear(),
+			id: facture.id,
+			clientId: facture.clientId,
+			totalAmount: facture.totalAmount,
+			issueYear: facture.issueYear,
 		},
 	});
 
@@ -28,7 +28,7 @@ const CreateFactureForm = ({ client }: { client: any }) => {
 			totalAmount: Number(values.totalAmount),
 			issueYear: Number(values.issueYear),
 		};
-		const res = await createFacture(data);
+		const res = await updateFacture(data);
 		if (res.error) {
 			toast({
 				title: 'Error',
@@ -39,7 +39,7 @@ const CreateFactureForm = ({ client }: { client: any }) => {
 		if (res.success) {
 			toast({
 				title: 'Success',
-				description: 'Facture created successfully',
+				description: 'Facture has been updated',
 			});
 			router.refresh();
 		}
@@ -87,11 +87,11 @@ const CreateFactureForm = ({ client }: { client: any }) => {
 					)}
 				/>
 				<Button type='submit' className='w-full'>
-					Create
+					Sauvegarder
 				</Button>
 			</form>
 		</FormProvider>
 	);
 };
 
-export default CreateFactureForm;
+export default UpdateFactureForm;

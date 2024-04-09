@@ -11,6 +11,8 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import FactureDeleteDialog from './delete-facture-dialog';
+import FactureUpdateDialog from './update-facture-dialog';
 
 export const clientFactureColumns: ColumnDef<any>[] = [
 	{
@@ -89,7 +91,7 @@ export const clientFactureColumns: ColumnDef<any>[] = [
 	{
 		id: 'actions',
 		header: 'Actions',
-		cell: () => {
+		cell: ({ row }) => {
 			return (
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
@@ -100,8 +102,8 @@ export const clientFactureColumns: ColumnDef<any>[] = [
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align='end'>
 						<DropdownMenuLabel>Actions</DropdownMenuLabel>
-						<DropdownMenuItem>Modifier</DropdownMenuItem>
-						<DropdownMenuItem>Supprimer</DropdownMenuItem>
+						<FactureUpdateDialog facture={row.original} />
+						<FactureDeleteDialog id={row.getValue('id')} />
 					</DropdownMenuContent>
 				</DropdownMenu>
 			);

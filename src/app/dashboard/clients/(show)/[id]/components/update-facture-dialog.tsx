@@ -8,23 +8,23 @@ import {
 	DialogTrigger,
 } from '@/components/ui/dialog';
 import { Pencil } from 'lucide-react';
-import ClientUpdateForm from './update-client-form';
+import FactureUpdateForm from './update-facture-form';
 
-export default function ClientUpdateDialog({ client }: { client: any }) {
+export default function FactureUpdateDialog({ facture }: { facture: any }) {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button className='flex items-center gap-2'>
+				<Button className='flex items-center gap-4 pr-10 pl-1 py-4 mt-1 h-5' variant='ghost'>
 					<Pencil size={16} className='w-3 h-3' />
 					Modifier
 				</Button>
 			</DialogTrigger>
 			<DialogContent className='sm:max-w-[425px]'>
 				<DialogHeader>
-					<DialogTitle>Modifier Client</DialogTitle>
-					<DialogDescription>Modifier le client ci-dessous.</DialogDescription>
+					<DialogTitle>Modifier Facture</DialogTitle>
+					<DialogDescription>Modifier le facture ci-dessous.</DialogDescription>
 				</DialogHeader>
-				<ClientUpdateForm client={client} />
+				<FactureUpdateForm facture={facture} />
 			</DialogContent>
 		</Dialog>
 	);

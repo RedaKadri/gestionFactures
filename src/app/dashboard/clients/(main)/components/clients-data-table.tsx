@@ -16,7 +16,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
-export default function dataTable({ columns, data }: { columns: ColumnDef<any, unknown>[]; data: any }) {
+export default function DataTable({ columns, data }: { columns: ColumnDef<any, unknown>[]; data: any }) {
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
 	const table = useReactTable({

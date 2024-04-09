@@ -1,6 +1,6 @@
 'use client';
 
-import { deleteClient } from '@/actions/client.action';
+import { deleteFacture } from '@/actions/facture.action';
 import { Button } from '@/components/ui/button';
 import {
 	Dialog,
@@ -15,22 +15,22 @@ import { toast } from '@/components/ui/use-toast';
 import { Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
-export default function ClientDeleteDialog({ id }: { id: string }) {
+export default function FactureDeleteDialog({ id }: { id: string }) {
 	const router = useRouter();
 
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button className='flex items-center gap-2' variant='destructive'>
+				<Button className='flex items-center gap-4 pl-1 pr-7 py-4 h-5 text-destructive' variant='ghost'>
 					<Trash2 size={16} className='w-3 h-3' />
 					Supprimer
 				</Button>
 			</DialogTrigger>
 			<DialogContent className='sm:max-w-[425px]'>
 				<DialogHeader>
-					<DialogTitle>Supprimer client</DialogTitle>
+					<DialogTitle>Supprimer facture</DialogTitle>
 					<DialogDescription>
-						Cet action permette de supprimer le client et toutes ses factures et payments.
+						Cet action permette de supprimer la facture et toutes ses payments.
 					</DialogDescription>
 				</DialogHeader>
 				<DialogFooter>
@@ -38,7 +38,7 @@ export default function ClientDeleteDialog({ id }: { id: string }) {
 						<form
 							onSubmit={async (e) => {
 								e.preventDefault();
-								const res = await deleteClient(id);
+								const res = await deleteFacture(id);
 								if (res.error) {
 									toast({
 										title: 'Error',
@@ -49,10 +49,10 @@ export default function ClientDeleteDialog({ id }: { id: string }) {
 								if (res.success) {
 									toast({
 										title: 'Success',
-										description: 'Client has been deleted',
+										description: 'Facture has been deleted',
 									});
 
-									router.push('/dashboard/clients');
+									router.refresh();
 								}
 							}}
 						>
