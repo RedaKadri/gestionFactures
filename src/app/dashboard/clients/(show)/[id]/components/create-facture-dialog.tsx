@@ -7,10 +7,10 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from '@/components/ui/dialog';
-import CreateFacture from './create-facture';
+import CreateFacture from './create-facture-form';
 import { Plus } from 'lucide-react';
 
-export function FactureAddDialog({ client }: { client: any }) {
+export default function FactureCreateDialog({ client }: { client: any }) {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>

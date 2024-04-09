@@ -1,34 +1,31 @@
 'use client';
 
-import { createFacture } from '@/actions/facture.action';
-import { Button } from '@/components/ui/button';
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { toast } from '@/components/ui/use-toast';
-import { FacutreSchema } from '@/types';
-import { useRouter } from 'next/navigation';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-const CreateFacture = ({ client }: { client: any }) => {
+import { Button } from '@/components/ui/button';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useRouter } from 'next/navigation';
+import { toast } from '@/components/ui/use-toast';
+import { ClientSchema } from '@/types';
+import { createClient } from '@/actions/client.action';
+
+const CreateForm = () => {
 	const router = useRouter();
 
-	const form = useForm({
+	const form = useForm<z.infer<typeof ClientSchema>>({
+		resolver: zodResolver(ClientSchema),
 		defaultValues: {
 			id: '',
-			clientId: client.id,
-			totalAmount: 0,
-			issueYear: new Date().getFullYear(),
+			name: '',
+			tel: '',
 		},
 	});
 
-	async function onSubmit(values: z.infer<typeof FacutreSchema>) {
-		const data: z.infer<typeof FacutreSchema> = {
-			...values,
-			totalAmount: Number(values.totalAmount),
-			issueYear: Number(values.issueYear),
-		};
-		const res = await createFacture(data);
+	async function onSubmit(values: z.infer<typeof ClientSchema>) {
+		const res = await createClient(values);
 		if (res.error) {
 			toast({
 				title: 'Error',
@@ -39,14 +36,16 @@ const CreateFacture = ({ client }: { client: any }) => {
 		if (res.success) {
 			toast({
 				title: 'Success',
-				description: 'Client has been updated',
+				description: 'Client has been added',
 			});
-			router.refresh();
+
+			router.push(`/dashboard/clients/${res.id}`);
 		}
 	}
+
 	return (
 		<FormProvider {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+			<form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
 				<FormField
 					control={form.control}
 					name='id'
@@ -62,10 +61,10 @@ const CreateFacture = ({ client }: { client: any }) => {
 				/>
 				<FormField
 					control={form.control}
-					name='totalAmount'
+					name='name'
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Montant Total</FormLabel>
+							<FormLabel>Nom</FormLabel>
 							<FormControl>
 								<Input {...field} />
 							</FormControl>
@@ -75,23 +74,23 @@ const CreateFacture = ({ client }: { client: any }) => {
 				/>
 				<FormField
 					control={form.control}
-					name='issueYear'
+					name='tel'
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Année</FormLabel>
+							<FormLabel>Tél</FormLabel>
 							<FormControl>
-								<Input {...field} />
+								<Input {...field} type='tel' />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
 					)}
 				/>
 				<Button type='submit' className='w-full'>
-					Create
+					Ajouter
 				</Button>
 			</form>
 		</FormProvider>
 	);
 };
 
-export default CreateFacture;
+export default CreateForm;

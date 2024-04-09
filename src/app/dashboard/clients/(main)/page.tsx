@@ -1,10 +1,10 @@
-import ClientMain from './client-main';
+import ClientMain from './components/clients-main';
 
 import { validateRequest } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { getYears } from '@/db/queries';
 
-async function clientPage() {
+async function ClientsPage() {
 	const { user } = await validateRequest();
 	if (!user) return redirect('/login');
 
@@ -17,4 +17,4 @@ async function clientPage() {
 	);
 }
 
-export default clientPage;
+export default ClientsPage;

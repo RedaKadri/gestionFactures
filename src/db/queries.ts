@@ -4,7 +4,7 @@ import { desc, eq, sql } from 'drizzle-orm';
 import db from '.';
 import { FactureTable, clientTable, paymentTable } from './schema';
 
-export async function getClients(year: number): Promise<any> {
+export async function getClientsWithDetails(year: number): Promise<any> {
 	return await db
 		.select({
 			clientId: clientTable.id,
@@ -22,7 +22,7 @@ export async function getClients(year: number): Promise<any> {
 		.having(eq(FactureTable.issueYear, year));
 }
 
-export async function getClient(id: string): Promise<any> {
+export async function getClientWithDetails(id: string): Promise<any> {
 	const clientData = await db.select().from(clientTable).where(eq(clientTable.id, id));
 	const client = clientData[0];
 

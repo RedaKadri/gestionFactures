@@ -1,5 +1,5 @@
 import { validateRequest } from '@/lib/auth';
-import AddingForm from './adding-form';
+import CreateForm from './create-form';
 import { redirect } from 'next/navigation';
 
 export default async function () {
@@ -16,7 +16,7 @@ export default async function () {
 							Entrez les informations ci-dessous pour ajouter un client
 						</p>
 					</div>
-					<AddingForm />
+					<CreateForm />
 				</div>
 			</div>
 		</div>

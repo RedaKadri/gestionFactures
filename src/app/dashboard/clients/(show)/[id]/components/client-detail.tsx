@@ -1,8 +1,8 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { FilePlus2, KeyRound, Phone, User, UserCheck } from 'lucide-react';
-import { ClientEditDialog } from './client-dialog';
-import { ClientDelete } from './client-delete';
-import { FactureAddDialog } from './create-facture-dialog';
+import ClientUpdateDialog from './update-client-dialog';
+import ClientDeleteDialog from './delete-client-dialog';
+import FactureCreateDialog from './create-facture-dialog';
 
 export default function ClientDetail({ client }: { client: any }) {
 	return (
@@ -40,8 +40,8 @@ export default function ClientDetail({ client }: { client: any }) {
 					</div>
 				</CardContent>
 				<CardFooter className='flex justify-end items-center gap-3'>
-					<ClientEditDialog client={client} />
-					<ClientDelete id={client.id} />
+					<ClientUpdateDialog client={client} />
+					<ClientDeleteDialog id={client.id} />
 				</CardFooter>
 			</Card>
 			<Card className='w-full'>
@@ -57,7 +57,7 @@ export default function ClientDetail({ client }: { client: any }) {
 					<p>Ajouter une facture pour ce client</p>
 				</CardContent>
 				<CardFooter className='flex justify-end items-center gap-3'>
-					<FactureAddDialog client={client} />
+					<FactureCreateDialog client={client} />
 				</CardFooter>
 			</Card>
 		</div>

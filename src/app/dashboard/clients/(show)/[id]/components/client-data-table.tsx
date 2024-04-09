@@ -15,7 +15,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
-export default function ClientFactureTable({ columns, data }: { columns: ColumnDef<any, unknown>[]; data: any }) {
+export default function ClientTable({ columns, data }: { columns: ColumnDef<any, unknown>[]; data: any }) {
 	const [sorting, setSorting] = useState<SortingState>([]);
 
 	const table = useReactTable({

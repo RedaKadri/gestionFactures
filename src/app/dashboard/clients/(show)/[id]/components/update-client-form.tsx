@@ -1,31 +1,30 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { FormProvider, useForm } from 'react-hook-form';
-import { z } from 'zod';
-
+import { updateClient } from '@/actions/client.action';
 import { Button } from '@/components/ui/button';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useRouter } from 'next/navigation';
 import { toast } from '@/components/ui/use-toast';
 import { ClientSchema } from '@/types';
-import { addClient } from '@/actions/client.action';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
+import { FormProvider, useForm } from 'react-hook-form';
+import { z } from 'zod';
 
-const AddingForm = () => {
+const ClientUpdateForm = ({ client }: { client: any }) => {
 	const router = useRouter();
 
 	const form = useForm<z.infer<typeof ClientSchema>>({
 		resolver: zodResolver(ClientSchema),
 		defaultValues: {
-			id: '',
-			name: '',
-			tel: '',
+			id: client.id,
+			name: client.name,
+			tel: client.tel,
 		},
 	});
 
 	async function onSubmit(values: z.infer<typeof ClientSchema>) {
-		const res = await addClient(values);
+		const res = await updateClient(values);
 		if (res.error) {
 			toast({
 				title: 'Error',
@@ -36,16 +35,15 @@ const AddingForm = () => {
 		if (res.success) {
 			toast({
 				title: 'Success',
-				description: 'Client has been added',
+				description: 'Client has been updated',
 			});
 
-			router.push(`/dashboard/clients/${res.id}`);
+			router.refresh();
 		}
 	}
-
 	return (
 		<FormProvider {...form}>
-			<form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+			<form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
 				<FormField
 					control={form.control}
 					name='id'
@@ -86,11 +84,11 @@ const AddingForm = () => {
 					)}
 				/>
 				<Button type='submit' className='w-full'>
-					Ajouter
+					Sauvegarder
 				</Button>
 			</form>
 		</FormProvider>
 	);
 };
 
-export default AddingForm;
+export default ClientUpdateForm;

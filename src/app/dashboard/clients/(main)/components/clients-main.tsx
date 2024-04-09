@@ -1,8 +1,8 @@
 'use client';
 
 import useSWR from 'swr';
-import { columns } from './columns';
-import DataTable from './data-table';
+import { columns } from './clients-columns';
+import DataTable from './clients-data-table';
 import { useState } from 'react';
 
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';

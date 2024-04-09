@@ -6,7 +6,7 @@ import { ClientSchema } from '@/types';
 import { eq } from 'drizzle-orm';
 import { z } from 'zod';
 
-export async function addClient(values: z.infer<typeof ClientSchema>) {
+export async function createClient(values: z.infer<typeof ClientSchema>) {
 	try {
 		const client = await db.insert(clientTable).values(values).returning({ id: clientTable.id });
 		return {
@@ -20,7 +20,7 @@ export async function addClient(values: z.infer<typeof ClientSchema>) {
 	}
 }
 
-export async function editClient(values: z.infer<typeof ClientSchema>) {
+export async function updateClient(values: z.infer<typeof ClientSchema>) {
 	try {
 		await db.update(clientTable).set(values).where(eq(clientTable.id, values.id));
 

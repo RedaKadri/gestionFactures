@@ -1,30 +1,34 @@
 'use client';
 
-import { editClient } from '@/actions/client.action';
+import { createFacture } from '@/actions/facture.action';
 import { Button } from '@/components/ui/button';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/use-toast';
-import { ClientSchema } from '@/types';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { FacutreSchema } from '@/types';
 import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-const ClientEdit = ({ client }: { client: any }) => {
+const CreateFactureForm = ({ client }: { client: any }) => {
 	const router = useRouter();
 
-	const form = useForm<z.infer<typeof ClientSchema>>({
-		resolver: zodResolver(ClientSchema),
+	const form = useForm({
 		defaultValues: {
-			id: client.id,
-			name: client.name,
-			tel: client.tel,
+			id: '',
+			clientId: client.id,
+			totalAmount: 0,
+			issueYear: new Date().getFullYear(),
 		},
 	});
 
-	async function onSubmit(values: z.infer<typeof ClientSchema>) {
-		const res = await editClient(values);
+	async function onSubmit(values: z.infer<typeof FacutreSchema>) {
+		const data: z.infer<typeof FacutreSchema> = {
+			...values,
+			totalAmount: Number(values.totalAmount),
+			issueYear: Number(values.issueYear),
+		};
+		const res = await createFacture(data);
 		if (res.error) {
 			toast({
 				title: 'Error',
@@ -37,7 +41,6 @@ const ClientEdit = ({ client }: { client: any }) => {
 				title: 'Success',
 				description: 'Client has been updated',
 			});
-
 			router.refresh();
 		}
 	}
@@ -59,10 +62,10 @@ const ClientEdit = ({ client }: { client: any }) => {
 				/>
 				<FormField
 					control={form.control}
-					name='name'
+					name='totalAmount'
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Nom</FormLabel>
+							<FormLabel>Montant Total</FormLabel>
 							<FormControl>
 								<Input {...field} />
 							</FormControl>
@@ -72,23 +75,23 @@ const ClientEdit = ({ client }: { client: any }) => {
 				/>
 				<FormField
 					control={form.control}
-					name='tel'
+					name='issueYear'
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Tél</FormLabel>
+							<FormLabel>Année</FormLabel>
 							<FormControl>
-								<Input {...field} type='tel' />
+								<Input {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
 					)}
 				/>
 				<Button type='submit' className='w-full'>
-					Sauvegarder
+					Create
 				</Button>
 			</form>
 		</FormProvider>
 	);
 };
 
-export default ClientEdit;
+export default CreateFactureForm;

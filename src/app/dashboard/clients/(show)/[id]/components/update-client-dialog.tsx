@@ -8,9 +8,9 @@ import {
 	DialogTrigger,
 } from '@/components/ui/dialog';
 import { Pencil } from 'lucide-react';
-import ClientEdit from './client-edit';
+import ClientEdit from './update-client-form';
 
-export function ClientEditDialog({ client }: { client: any }) {
+export default function ClientUpdateDialog({ client }: { client: any }) {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>

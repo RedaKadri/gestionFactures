@@ -15,7 +15,7 @@ import { toast } from '@/components/ui/use-toast';
 import { Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
-export async function ClientDelete({ id }: { id: string }) {
+export default async function ClientDeleteDialog({ id }: { id: string }) {
 	const router = useRouter();
 
 	return (
