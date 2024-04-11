@@ -7,12 +7,13 @@ import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
-	DropdownMenuItem,
 	DropdownMenuLabel,
+	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import FactureDeleteDialog from './delete-facture-dialog';
 import FactureUpdateDialog from './update-facture-dialog';
+import PaymentCreateDialog from './create-payment-dialog';
 
 export const clientFactureColumns: ColumnDef<any>[] = [
 	{
@@ -75,7 +76,7 @@ export const clientFactureColumns: ColumnDef<any>[] = [
 				</Button>
 			);
 		},
-		cell: ({ row }) => <p className='ms-9'>{row.getValue('issueYear')}</p>,
+		cell: ({ row }) => <p className='ms-4'>{row.getValue('issueYear')}</p>,
 	},
 	{
 		accessorKey: 'status',
@@ -102,6 +103,8 @@ export const clientFactureColumns: ColumnDef<any>[] = [
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align='end'>
 						<DropdownMenuLabel>Actions</DropdownMenuLabel>
+						<PaymentCreateDialog factureId={row.getValue('id')} />
+						<DropdownMenuSeparator />
 						<FactureUpdateDialog facture={row.original} />
 						<FactureDeleteDialog id={row.getValue('id')} />
 					</DropdownMenuContent>

@@ -6,6 +6,7 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/comp
 import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/use-toast';
 import { FacutreSchema } from '@/types';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -13,7 +14,8 @@ import { z } from 'zod';
 const CreateFactureForm = ({ client }: { client: any }) => {
 	const router = useRouter();
 
-	const form = useForm({
+	const form = useForm<z.infer<typeof FacutreSchema>>({
+		resolver: zodResolver(FacutreSchema),
 		defaultValues: {
 			id: '',
 			clientId: client.id,

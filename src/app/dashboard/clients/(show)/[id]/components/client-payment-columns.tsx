@@ -50,7 +50,7 @@ export const clientPaymentColumns: ColumnDef<any>[] = [
 				</Button>
 			);
 		},
-		cell: ({ row }) => <p>{(row.getValue('updatedAt') as string).slice(0, 16)}</p>,
+		cell: ({ row }) => <p className='ms-4'>{(row.getValue('updatedAt') as string).slice(0, 16)}</p>,
 	},
 	{
 		id: 'actions',

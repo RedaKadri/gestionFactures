@@ -21,7 +21,7 @@ export default function FactureDeleteDialog({ id }: { id: string }) {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button className='flex items-center gap-4 pl-1 pr-7 py-4 h-5 text-destructive' variant='ghost'>
+				<Button className='flex items-center gap-4 pl-1 pr-12 py-4 h-5 text-destructive' variant='ghost'>
 					<Trash2 size={16} className='w-3 h-3' />
 					Supprimer
 				</Button>

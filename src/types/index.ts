@@ -23,8 +23,14 @@ export const ClientSchema = z.object({
 });
 
 export const FacutreSchema = z.object({
-	id: z.string().min(1),
+	id: z.string().min(1, 'code doit pas être vide'),
 	clientId: z.string(),
-	totalAmount: z.number().min(0),
+	totalAmount: z.coerce.number().positive('le montant doit être positif'),
 	issueYear: z.number(),
+});
+
+export const PaymentSchema = z.object({
+	id: z.string().min(1, 'code doit pas être vide'),
+	factureId: z.string(),
+	amount: z.coerce.number().positive('le montant doit être positif'),
 });

@@ -30,7 +30,7 @@ function Header() {
 				</DropdownMenu>
 			</div>
 			<Link href={'/dashboard'} className='cursor-pointer'>
-				<Button variant='ghost' className='text-2xl font-bold ms-10'>
+				<Button variant='ghost' className='text-2xl font-bold ms-14'>
 					GDC
 				</Button>
 			</Link>
