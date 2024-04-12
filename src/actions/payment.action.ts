@@ -54,3 +54,34 @@ export async function createPayment(
 		};
 	}
 }
+
+/**
+ * Delete a payment
+ * @param {string} id - The payment id
+ * @returns {Promise<{ success?: boolean; error?: string; }>} - The response
+ */
+export async function deletePayment(id: string): Promise<{ success?: boolean; error?: string }> {
+	try {
+		await db.transaction(async (tx) => {
+			// Get the id of the facture that the deleted payment belongs to
+			const [{ deletedFactureId }] = await tx
+				.delete(paymentTable)
+				.where(eq(paymentTable.id, id))
+				.returning({ deletedFactureId: paymentTable.factureId });
+
+			// Update the status of the facture to "en attente" if it was "payé"
+			try {
+				await tx
+					.update(FactureTable)
+					.set({ status: 'en attente' })
+					.where(eq(FactureTable.id, deletedFactureId));
+			} catch (updateError: any) {
+				throw new Error(`Failed to update Facture: ${updateError.message}`);
+			}
+		});
+
+		return { success: true };
+	} catch (error: any) {
+		return { error: error.message };
+	}
+}

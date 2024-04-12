@@ -11,6 +11,7 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import PaymentDeleteDialog from './delete-payment-dialog';
 
 export const clientPaymentColumns: ColumnDef<any>[] = [
 	{
@@ -55,7 +56,7 @@ export const clientPaymentColumns: ColumnDef<any>[] = [
 	{
 		id: 'actions',
 		header: 'Actions',
-		cell: () => {
+		cell: ({ row }) => {
 			return (
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
@@ -66,8 +67,7 @@ export const clientPaymentColumns: ColumnDef<any>[] = [
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align='end'>
 						<DropdownMenuLabel>Actions</DropdownMenuLabel>
-						<DropdownMenuItem>Modifier</DropdownMenuItem>
-						<DropdownMenuItem>Supprimer</DropdownMenuItem>
+						<PaymentDeleteDialog id={row.getValue('id')} />
 					</DropdownMenuContent>
 				</DropdownMenu>
 			);
