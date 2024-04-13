@@ -26,6 +26,9 @@ function Header() {
 						<DropdownMenuItem>
 							<Link href={'/dashboard/clients'}>Clients</Link>
 						</DropdownMenuItem>
+						<DropdownMenuItem>
+							<Link href={'/dashboard/clients/create'}>Ajouter un client</Link>
+						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
 			</div>

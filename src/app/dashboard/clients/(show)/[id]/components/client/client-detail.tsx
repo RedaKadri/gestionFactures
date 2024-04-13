@@ -2,7 +2,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { FilePlus2, KeyRound, Phone, User, UserCheck } from 'lucide-react';
 import ClientUpdateDialog from './update-client-dialog';
 import ClientDeleteDialog from './delete-client-dialog';
-import FactureCreateDialog from './create-facture-dialog';
+import FactureCreateDialog from '../facture/create-facture-dialog';
 
 export default function ClientDetail({ client }: { client: any }) {
 	return (

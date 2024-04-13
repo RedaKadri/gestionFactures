@@ -1,11 +1,11 @@
 import { getClientWithDetails } from '@/db/queries';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import ClientTable from './components/client-data-table';
-import { clientFactureColumns } from './components/client-facture-columns';
-import ClientDetail from './components/client-detail';
+import ClientTable from './components/client/client-data-table';
+import { clientFactureColumns } from './components/client/client-facture-columns';
+import ClientDetail from './components/client/client-detail';
 import { validateRequest } from '@/lib/auth';
 import { redirect } from 'next/navigation';
-import { clientPaymentColumns } from './components/client-payment-columns';
+import { clientPaymentColumns } from './components/client/client-payment-columns';
 
 export default async function ClientPage({ params }: { params: { id: string } }) {
 	const { user } = await validateRequest();

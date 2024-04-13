@@ -55,11 +55,17 @@ export async function createPayment(
 	}
 }
 
+/**
+ * Update a payment
+ * @param {z.infer<typeof PaymentSchema>} values - The updated payment data
+ * @returns {Promise<{ success?: boolean; error?: string; }>} - The response
+ */
 export async function updatePayment(
 	values: z.infer<typeof PaymentSchema>,
 ): Promise<{ success?: boolean; error?: string }> {
 	try {
 		await db.transaction(async (tx) => {
+			// Update the payment
 			// await tx.update(paymentTable).set(values).where(eq(paymentTable.id, values.id));
 
 			// Get the total amount of the facture
@@ -88,6 +94,7 @@ export async function updatePayment(
 			// Update the facture status
 			await tx.update(FactureTable).set({ status }).where(eq(FactureTable.id, values.factureId));
 		});
+
 		return {
 			success: true,
 		};
@@ -97,6 +104,7 @@ export async function updatePayment(
 		};
 	}
 }
+
 /**
  * Delete a payment
  * @param {string} id - The payment id

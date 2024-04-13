@@ -7,12 +7,11 @@ import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
-	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import PaymentDeleteDialog from './delete-payment-dialog';
-import PaymentUpdateDialog from './update-payment-dialog';
+import PaymentDeleteDialog from '../payment/delete-payment-dialog';
+import PaymentUpdateDialog from '../payment/update-payment-dialog';
 
 export const clientPaymentColumns: ColumnDef<any>[] = [
 	{

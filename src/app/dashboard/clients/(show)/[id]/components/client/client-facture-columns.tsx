@@ -11,9 +11,9 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import FactureDeleteDialog from './delete-facture-dialog';
-import FactureUpdateDialog from './update-facture-dialog';
-import PaymentCreateDialog from './create-payment-dialog';
+import FactureDeleteDialog from '../facture/delete-facture-dialog';
+import FactureUpdateDialog from '../facture/update-facture-dialog';
+import PaymentCreateDialog from '../payment/create-payment-dialog';
 
 export const clientFactureColumns: ColumnDef<any>[] = [
 	{

@@ -19,9 +19,17 @@ export const createFacture = async (values: z.infer<typeof FacutreSchema>): Prom
 	}
 };
 
-export async function updateFacture(values: z.infer<typeof FacutreSchema>) {
+/**
+ * Update a facture
+ * @param {z.infer<typeof FacutreSchema>} values - The facture data
+ * @returns {Promise<{ success?: boolean; error?: string; }>} - The response
+ */
+export async function updateFacture(
+	values: z.infer<typeof FacutreSchema>,
+): Promise<{ success?: boolean; error?: string }> {
 	try {
 		await db.transaction(async (tx) => {
+			// Get the total amount of payments for this facture
 			const [facturePayments]: any = await tx
 				.select({ payments: sql`sum(${paymentTable.amount}) as payments` })
 				.from(paymentTable)
