@@ -3,7 +3,7 @@
 import db from '@/db';
 import { FactureTable, paymentTable } from '@/db/schema';
 import { PaymentSchema } from '@/types';
-import { eq, sql } from 'drizzle-orm';
+import { and, eq, ne, sql } from 'drizzle-orm';
 import { z } from 'zod';
 
 /**
@@ -55,6 +55,48 @@ export async function createPayment(
 	}
 }
 
+export async function updatePayment(
+	values: z.infer<typeof PaymentSchema>,
+): Promise<{ success?: boolean; error?: string }> {
+	try {
+		await db.transaction(async (tx) => {
+			// await tx.update(paymentTable).set(values).where(eq(paymentTable.id, values.id));
+
+			// Get the total amount of the facture
+			const [facture]: any = await tx
+				.select({ totalAmount: FactureTable.totalAmount })
+				.from(FactureTable)
+				.where(eq(FactureTable.id, values.factureId));
+
+			const [payments]: any = await tx
+				.select({
+					payments: sql`sum(${paymentTable.amount}) as payments`,
+				})
+				.from(paymentTable)
+				.where(and(eq(paymentTable.factureId, values.factureId), ne(paymentTable.id, values.id)));
+
+			// Check if the new total amount is greater than the facture total amount
+			if ((payments.payments || 0) + values.amount > facture.totalAmount) {
+				throw new Error('Le montant de la facture est insuffisant');
+			}
+
+			await tx.update(paymentTable).set(values).where(eq(paymentTable.id, values.id));
+
+			// Calculate the new status of the facture based on the total amount of payments
+			const status = payments.payments + values.amount === facture.totalAmount ? 'payé' : 'en attente';
+
+			// Update the facture status
+			await tx.update(FactureTable).set({ status }).where(eq(FactureTable.id, values.factureId));
+		});
+		return {
+			success: true,
+		};
+	} catch (error: any) {
+		return {
+			error: error.message,
+		};
+	}
+}
 /**
  * Delete a payment
  * @param {string} id - The payment id

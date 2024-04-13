@@ -27,6 +27,10 @@ export async function updateFacture(values: z.infer<typeof FacutreSchema>) {
 				.from(paymentTable)
 				.where(eq(paymentTable.factureId, values.id));
 
+			if (facturePayments.payments > values.totalAmount) {
+				throw new Error('Le montant de la facture est insuffisant');
+			}
+
 			const status = facturePayments.payments === values.totalAmount ? 'payé' : 'en attente';
 
 			await tx

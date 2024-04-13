@@ -47,7 +47,7 @@ export default function PaymentDeleteDialog({ id }: { id: string }) {
 								if (res.success) {
 									toast({
 										title: 'Success',
-										description: 'Facture has been deleted',
+										description: 'Payment has been deleted',
 									});
 
 									router.refresh();

@@ -1,36 +1,34 @@
 'use client';
 
-import { updateFacture } from '@/actions/facture.action';
+import { updatePayment } from '@/actions/payment.action';
 import { Button } from '@/components/ui/button';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/components/ui/use-toast';
-import { FacutreSchema } from '@/types';
+import { PaymentSchema } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-const UpdateFactureForm = ({ facture }: { facture: any }) => {
+const UpdatePaymentForm = ({ payment }: { payment: any }) => {
 	const router = useRouter();
 
-	const form = useForm<z.infer<typeof FacutreSchema>>({
-		resolver: zodResolver(FacutreSchema),
+	const form = useForm<z.infer<typeof PaymentSchema>>({
+		resolver: zodResolver(PaymentSchema),
 		defaultValues: {
-			id: facture.id,
-			clientId: facture.clientId,
-			totalAmount: facture.totalAmount,
-			issueYear: facture.issueYear,
+			id: payment.id,
+			factureId: payment.factureId,
+			amount: payment.amount,
 		},
 	});
 
-	async function onSubmit(values: z.infer<typeof FacutreSchema>) {
-		const data: z.infer<typeof FacutreSchema> = {
+	async function onSubmit(values: z.infer<typeof PaymentSchema>) {
+		const data: z.infer<typeof PaymentSchema> = {
 			...values,
-			totalAmount: Number(values.totalAmount),
-			issueYear: Number(values.issueYear),
+			amount: Number(values.amount),
 		};
-		const res = await updateFacture(data);
+		const res = await updatePayment(data);
 		if (res.error) {
 			toast({
 				title: 'Error',
@@ -41,7 +39,7 @@ const UpdateFactureForm = ({ facture }: { facture: any }) => {
 		if (res.success) {
 			toast({
 				title: 'Success',
-				description: 'Facture has been updated',
+				description: 'Payment has been updated',
 			});
 			router.refresh();
 		}
@@ -64,23 +62,10 @@ const UpdateFactureForm = ({ facture }: { facture: any }) => {
 				/>
 				<FormField
 					control={form.control}
-					name='totalAmount'
+					name='amount'
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Montant Total</FormLabel>
-							<FormControl>
-								<Input {...field} />
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-				<FormField
-					control={form.control}
-					name='issueYear'
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Année</FormLabel>
+							<FormLabel>Montant </FormLabel>
 							<FormControl>
 								<Input {...field} />
 							</FormControl>
@@ -96,4 +81,4 @@ const UpdateFactureForm = ({ facture }: { facture: any }) => {
 	);
 };
 
-export default UpdateFactureForm;
+export default UpdatePaymentForm;

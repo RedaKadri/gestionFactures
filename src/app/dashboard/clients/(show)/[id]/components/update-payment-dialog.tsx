@@ -8,9 +8,9 @@ import {
 	DialogTrigger,
 } from '@/components/ui/dialog';
 import { Pencil } from 'lucide-react';
-import FactureUpdateForm from './update-facture-form';
+import UpdatePaymentForm from './update-payment-form';
 
-export default function FactureUpdateDialog({ facture }: { facture: any }) {
+export default function PaymentUpdateDialog({ payment }: { payment: any }) {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
@@ -22,9 +22,9 @@ export default function FactureUpdateDialog({ facture }: { facture: any }) {
 			<DialogContent className='sm:max-w-[425px]'>
 				<DialogHeader>
 					<DialogTitle>Modifier Facture</DialogTitle>
-					<DialogDescription>Modifier la facture ci-dessous.</DialogDescription>
+					<DialogDescription>Modifier le payment ci-dessous.</DialogDescription>
 				</DialogHeader>
-				<FactureUpdateForm facture={facture} />
+				<UpdatePaymentForm payment={payment} />
 			</DialogContent>
 		</Dialog>
 	);
