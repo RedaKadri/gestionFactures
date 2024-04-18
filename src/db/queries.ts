@@ -34,6 +34,7 @@ export async function getClientsWithDetails(year: number): Promise<any> {
 	// Left join with factures on client id
 	// Group by facture id
 	// Having facture issueYear equal to given year
+	// ? i did count all payments for each facture using the select query for easy access
 	return await db
 		.select({
 			clientId: clientTable.id,
@@ -60,25 +61,15 @@ export async function getClientWithDetails(id: string): Promise<any> {
 	const clientData = await db.select().from(clientTable).where(eq(clientTable.id, id));
 	const client = clientData[0];
 
-	// Select all factures
-	// Left join with payments on facture id
-	// Group by facture id
-	// Having facture clientId equal to given id
-	// Order by facture issueYear desc
-	const factures = await db
-		.select({
-			id: FactureTable.id,
-			clientId: FactureTable.clientId,
-			totalAmount: FactureTable.totalAmount,
-			clientPayment: sql`sum(${paymentTable.amount}) as clientPayment`,
-			issueYear: FactureTable.issueYear,
-			status: FactureTable.status,
-		})
-		.from(FactureTable)
-		.leftJoin(paymentTable, eq(FactureTable.id, paymentTable.factureId))
-		.groupBy(FactureTable.id)
-		.having(eq(FactureTable.clientId, id))
-		.orderBy(desc(FactureTable.issueYear));
+	// Select all factures with payments using query
+	// ! i did not use select here because i need to include all payments for printing the facture
+	// ? i did count all payments for each facture because i need to count all payments for each client and i did it on the client side
+	const factures = await db.query.FactureTable.findMany({
+		where: eq(FactureTable.clientId, id),
+		with: {
+			payments: true,
+		},
+	});
 
 	// Select all payments
 	// Left join with factures on facture id
@@ -90,7 +81,7 @@ export async function getClientWithDetails(id: string): Promise<any> {
 			factureId: paymentTable.factureId,
 			amount: paymentTable.amount,
 			issueYear: FactureTable.issueYear,
-			updatedAt: paymentTable.updatedAt,
+			createdAt: paymentTable.createdAt,
 		})
 		.from(paymentTable)
 		.leftJoin(FactureTable, eq(FactureTable.id, paymentTable.factureId))

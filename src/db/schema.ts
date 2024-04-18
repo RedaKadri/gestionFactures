@@ -1,4 +1,4 @@
-import { sql } from 'drizzle-orm';
+import { relations, sql } from 'drizzle-orm';
 import { sqliteTable, text, integer, real } from 'drizzle-orm/sqlite-core';
 
 export const userTable = sqliteTable('user', {
@@ -32,6 +32,10 @@ export const clientTable = sqliteTable('client', {
 		.$onUpdate(() => sql`CURRENT_TIMESTAMP`),
 });
 
+export const clientRelations = relations(clientTable, ({ many }) => ({
+	factures: many(FactureTable),
+}));
+
 export const FactureTable = sqliteTable('facture', {
 	id: text('id').notNull().primaryKey(),
 	clientId: text('client_id')
@@ -48,6 +52,14 @@ export const FactureTable = sqliteTable('facture', {
 		.$onUpdate(() => sql`CURRENT_TIMESTAMP`),
 });
 
+export const factureRelations = relations(FactureTable, ({ many, one }) => ({
+	client: one(clientTable, {
+		fields: [FactureTable.clientId],
+		references: [clientTable.id],
+	}),
+	payments: many(paymentTable),
+}));
+
 export const paymentTable = sqliteTable('payment', {
 	id: text('id').notNull().primaryKey(),
 	factureId: text('facture_id')
@@ -61,3 +73,10 @@ export const paymentTable = sqliteTable('payment', {
 		.default(sql`(CURRENT_TIMESTAMP)`)
 		.$onUpdate(() => sql`CURRENT_TIMESTAMP`),
 });
+
+export const paymentRelations = relations(paymentTable, ({ one }) => ({
+	facture: one(FactureTable, {
+		fields: [paymentTable.factureId],
+		references: [FactureTable.id],
+	}),
+}));

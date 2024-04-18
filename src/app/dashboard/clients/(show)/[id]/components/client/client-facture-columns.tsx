@@ -40,10 +40,16 @@ export const clientFactureColumns: ColumnDef<any>[] = [
 		},
 	},
 	{
-		accessorKey: 'clientPayment',
+		accessorKey: 'payments',
+		accessorFn: (row: any) => {
+			const amount: number = parseFloat(
+				row.payments.reduce((payments: any[], payment: any) => payments + payment.amount, 0),
+			);
+			return amount;
+		},
 		header: 'Montant Payé',
 		cell: ({ row }) => {
-			const amount = parseFloat(row.getValue('clientPayment') ?? '0');
+			const amount = parseFloat(row.getValue('payments'));
 
 			const formatted = new Intl.NumberFormat('en-US', {
 				style: 'currency',
@@ -56,7 +62,7 @@ export const clientFactureColumns: ColumnDef<any>[] = [
 	{
 		header: 'Montant Restant',
 		cell: ({ row }) => {
-			const amount = parseFloat(row.getValue('totalAmount')) - parseFloat(row.getValue('clientPayment') ?? '0');
+			const amount = parseFloat(row.getValue('totalAmount')) - parseFloat(row.getValue('payments'));
 
 			const formatted = new Intl.NumberFormat('en-US', {
 				style: 'currency',

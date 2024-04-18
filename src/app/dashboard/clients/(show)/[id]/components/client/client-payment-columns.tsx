@@ -1,6 +1,5 @@
 'use client';
 
-import * as React from 'react';
 import { ColumnDef } from '@tanstack/react-table';
 import { Button } from '@/components/ui/button';
 import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
@@ -42,7 +41,7 @@ export const clientPaymentColumns: ColumnDef<any>[] = [
 		header: 'Année de facture',
 	},
 	{
-		accessorKey: 'updatedAt',
+		accessorKey: 'createdAt',
 		header: ({ column }) => {
 			return (
 				<Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
@@ -51,7 +50,7 @@ export const clientPaymentColumns: ColumnDef<any>[] = [
 				</Button>
 			);
 		},
-		cell: ({ row }) => <p className='ms-4'>{(row.getValue('updatedAt') as string).slice(0, 16)}</p>,
+		cell: ({ row }) => <p className='ms-4'>{(row.getValue('createdAt') as string).slice(0, 16)}</p>,
 	},
 	{
 		id: 'actions',
