@@ -14,6 +14,7 @@ import {
 import FactureDeleteDialog from '../facture/delete-facture-dialog';
 import FactureUpdateDialog from '../facture/update-facture-dialog';
 import PaymentCreateDialog from '../payment/create-payment-dialog';
+import PdfLink from '@/components/facture-pdf';
 
 export const clientFactureColumns: ColumnDef<any>[] = [
 	{
@@ -113,6 +114,7 @@ export const clientFactureColumns: ColumnDef<any>[] = [
 						<DropdownMenuSeparator />
 						<FactureUpdateDialog facture={row.original} />
 						<FactureDeleteDialog id={row.getValue('id')} />
+						<PdfLink facture={row.original} />
 					</DropdownMenuContent>
 				</DropdownMenu>
 			);

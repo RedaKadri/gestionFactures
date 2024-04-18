@@ -54,7 +54,7 @@ const UpdatePaymentForm = ({ payment }: { payment: any }) => {
 						<FormItem>
 							<FormLabel>Code</FormLabel>
 							<FormControl>
-								<Input {...field} />
+								<Input {...field} disabled />
 							</FormControl>
 							<FormMessage />
 						</FormItem>

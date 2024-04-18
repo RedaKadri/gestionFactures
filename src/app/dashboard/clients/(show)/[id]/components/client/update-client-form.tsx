@@ -51,7 +51,7 @@ const ClientUpdateForm = ({ client }: { client: any }) => {
 						<FormItem>
 							<FormLabel>Code</FormLabel>
 							<FormControl>
-								<Input {...field} />
+								<Input {...field} disabled />
 							</FormControl>
 							<FormMessage />
 						</FormItem>

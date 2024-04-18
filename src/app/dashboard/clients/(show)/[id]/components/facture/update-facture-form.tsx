@@ -56,7 +56,7 @@ const UpdateFactureForm = ({ facture }: { facture: any }) => {
 						<FormItem>
 							<FormLabel>Code</FormLabel>
 							<FormControl>
-								<Input {...field} />
+								<Input {...field} disabled />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
