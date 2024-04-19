@@ -3,6 +3,8 @@ import { validateRequest } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 
 export default async function Register() {
+	redirect('/dashboard');
+
 	const { user } = await validateRequest();
 
 	if (user) {

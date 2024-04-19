@@ -25,6 +25,7 @@ async function Dashboard() {
 	if (!user) {
 		return redirect('/login');
 	}
+
 	return (
 		<main className='container'>
 			<h1 className='text-4xl font-bold m-4 ms-0 font-mono'>Navigation</h1>

@@ -15,6 +15,7 @@ import FactureDeleteDialog from '../facture/delete-facture-dialog';
 import FactureUpdateDialog from '../facture/update-facture-dialog';
 import PaymentCreateDialog from '../payment/create-payment-dialog';
 import PdfLink from '@/components/facture-pdf';
+import { formatCurrency } from '@/lib/utils';
 
 export const clientFactureColumns: ColumnDef<any>[] = [
 	{
@@ -32,12 +33,7 @@ export const clientFactureColumns: ColumnDef<any>[] = [
 		cell: ({ row }) => {
 			const amount = parseFloat(row.getValue('totalAmount'));
 
-			const formatted = new Intl.NumberFormat('en-US', {
-				style: 'currency',
-				currency: 'MAD',
-			}).format(amount);
-
-			return <div className='font-medium'>{formatted}</div>;
+			return <div className='font-medium'>{formatCurrency(amount)}</div>;
 		},
 	},
 	{
@@ -52,12 +48,7 @@ export const clientFactureColumns: ColumnDef<any>[] = [
 		cell: ({ row }) => {
 			const amount = parseFloat(row.getValue('payments'));
 
-			const formatted = new Intl.NumberFormat('en-US', {
-				style: 'currency',
-				currency: 'MAD',
-			}).format(amount);
-
-			return <div className='font-medium'>{formatted}</div>;
+			return <div className='font-medium'>{formatCurrency(amount)}</div>;
 		},
 	},
 	{
@@ -65,12 +56,7 @@ export const clientFactureColumns: ColumnDef<any>[] = [
 		cell: ({ row }) => {
 			const amount = parseFloat(row.getValue('totalAmount')) - parseFloat(row.getValue('payments'));
 
-			const formatted = new Intl.NumberFormat('en-US', {
-				style: 'currency',
-				currency: 'MAD',
-			}).format(amount);
-
-			return <div className='font-medium'>{formatted}</div>;
+			return <div className='font-medium'>{formatCurrency(amount)}</div>;
 		},
 	},
 	{

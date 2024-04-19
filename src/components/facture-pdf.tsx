@@ -1,24 +1,9 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { formatCurrency } from '@/lib/utils';
 import { Document, Page, Text, View, StyleSheet, PDFDownloadLink } from '@react-pdf/renderer';
 import { FileText } from 'lucide-react';
-
-/**
- * Format the given amount as a currency string.
- *
- * @param {number} amount - The amount to format.
- *
- * @return {string} - The formatted amount as a currency string.
- */
-const formatCurrency = (amount: number): string => {
-	// Format the given amount as a currency string using the en-US locale and the
-	// Moroccan Dirham currency.
-	return new Intl.NumberFormat('en-US', {
-		style: 'currency', // Use currency formatting.
-		currency: 'MAD', // Use the Moroccan Dirham currency.
-	}).format(amount); // The amount to format.
-};
 
 // * Define the styles for the PDF document.
 const styles = StyleSheet.create({
@@ -99,7 +84,7 @@ const styles = StyleSheet.create({
 // * Define the header component for the PDF document.
 const Header = () => (
 	<View style={styles.header}>
-		<Text style={styles.headerContent}>Société Jihad ElMohasib</Text>
+		<Text style={styles.headerContent}>Sté JIHAD ALMOHASSIB</Text>
 	</View>
 );
 
@@ -142,6 +127,19 @@ const TableFooter = ({ total, text }: { total: string; text: string }) => (
 	</View>
 );
 
+// * Define the footer component for the PDF document.
+const Footer = () => (
+	<View fixed style={{ position: 'absolute', bottom: 10, left: 0, right: 0 }}>
+		<View style={{ borderBottom: '1px solid black', marginBottom: 5, marginLeft: 10, marginRight: 10 }} />
+		<Text style={{ fontSize: 8, textAlign: 'center' }}>
+			Address: Etage N°1 Appt N°2 Immeuble NIAS Rue Ahmed Taib Benhima Ville Nouvelle - Safi
+		</Text>
+		<Text style={{ fontSize: 8, textAlign: 'center' }}>
+			Tél: 06 61 51 45 92 <Text style={{ stroke: 'black', fontWeight: 'extrabold' }}>/</Text> 05 40 05 94 42
+		</Text>
+	</View>
+);
+
 // * Define the PDF document component.
 const MyPDFDocument = ({ facture }: { facture: any }) => {
 	const total = facture.payments.reduce((payments: any[], payment: any) => payments + payment.amount, 0);
@@ -159,6 +157,7 @@ const MyPDFDocument = ({ facture }: { facture: any }) => {
 					<TableFooter total={formatCurrency(total)} text={'Total'} />
 					<TableFooter total={formatCurrency(reste)} text={'Reste'} />
 				</View>
+				<Footer />
 			</Page>
 		</Document>
 	);

@@ -8,12 +8,27 @@ import { redirect } from 'next/navigation';
 import { clientPaymentColumns } from './components/client/client-payment-columns';
 
 export default async function ClientPage({ params }: { params: { id: string } }) {
+	/**
+	 * Validate the request and redirect to login if not authorized
+	 */
 	const { user } = await validateRequest();
+	/**
+	 * Redirect to login if not logged in
+	 */
 	if (!user) return redirect('/login');
 
+	/**
+	 * Get the client with its id from the params
+	 */
 	const { id } = params;
+	/**
+	 * Get the client's details with its factures and payments
+	 */
 	const { client, factures, payments } = await getClientWithDetails(id);
 
+	/**
+	 * If the client is not found, return a not found page
+	 */
 	if (!client)
 		return (
 			<div className='flex justify-center items-center h-[80vh]'>

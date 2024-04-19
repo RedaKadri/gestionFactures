@@ -21,7 +21,7 @@ export const signUp = async (values: z.infer<typeof RegisterSchema>) => {
 		});
 
 		const session = await lucia.createSession(userId, {
-			expiresIn: 60 * 60 * 6,
+			expiresIn: 24 * 60 * 60 * 1000,
 		});
 
 		const sessionCookie = lucia.createSessionCookie(session.id);

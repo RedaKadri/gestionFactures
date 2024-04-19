@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import PaymentDeleteDialog from '../payment/delete-payment-dialog';
 import PaymentUpdateDialog from '../payment/update-payment-dialog';
+import { formatCurrency } from '@/lib/utils';
 
 export const clientPaymentColumns: ColumnDef<any>[] = [
 	{
@@ -28,12 +29,7 @@ export const clientPaymentColumns: ColumnDef<any>[] = [
 		cell: ({ row }) => {
 			const amount = parseFloat(row.getValue('amount'));
 
-			const formatted = new Intl.NumberFormat('en-US', {
-				style: 'currency',
-				currency: 'MAD',
-			}).format(amount);
-
-			return <div className='font-medium'>{formatted}</div>;
+			return <div className='font-medium'>{formatCurrency(amount)}</div>;
 		},
 	},
 	{

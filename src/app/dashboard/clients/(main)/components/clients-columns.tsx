@@ -13,6 +13,7 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import Link from 'next/link';
+import { formatCurrency } from '@/lib/utils';
 
 export const columns: ColumnDef<any>[] = [
 	{
@@ -34,12 +35,7 @@ export const columns: ColumnDef<any>[] = [
 		cell: ({ row }) => {
 			const amount = parseFloat(row.getValue('FactureTotalAmount'));
 
-			const formatted = new Intl.NumberFormat('en-US', {
-				style: 'currency',
-				currency: 'MAD',
-			}).format(amount);
-
-			return <div className='font-medium'>{formatted}</div>;
+			return <div className='font-medium'>{formatCurrency(amount)}</div>;
 		},
 	},
 	{
@@ -48,12 +44,7 @@ export const columns: ColumnDef<any>[] = [
 		cell: ({ row }) => {
 			const amount = parseFloat(row.getValue('clientPayment') ?? '0');
 
-			const formatted = new Intl.NumberFormat('en-US', {
-				style: 'currency',
-				currency: 'MAD',
-			}).format(amount);
-
-			return <div className='font-medium'>{formatted}</div>;
+			return <div className='font-medium'>{formatCurrency(amount)}</div>;
 		},
 	},
 	{
@@ -62,12 +53,7 @@ export const columns: ColumnDef<any>[] = [
 			const amount =
 				parseFloat(row.getValue('FactureTotalAmount')) - parseFloat(row.getValue('clientPayment') ?? '0');
 
-			const formatted = new Intl.NumberFormat('en-US', {
-				style: 'currency',
-				currency: 'MAD',
-			}).format(amount);
-
-			return <div className='font-medium'>{formatted}</div>;
+			return <div className='font-medium'>{formatCurrency(amount)}</div>;
 		},
 	},
 	{
