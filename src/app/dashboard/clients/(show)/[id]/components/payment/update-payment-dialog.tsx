@@ -21,7 +21,7 @@ export default function PaymentUpdateDialog({ payment }: { payment: any }) {
 			</DialogTrigger>
 			<DialogContent className='sm:max-w-[425px]'>
 				<DialogHeader>
-					<DialogTitle>Modifier Facture</DialogTitle>
+					<DialogTitle>Modifier Payment</DialogTitle>
 					<DialogDescription>Modifier le payment ci-dessous.</DialogDescription>
 				</DialogHeader>
 				<UpdatePaymentForm payment={payment} />
