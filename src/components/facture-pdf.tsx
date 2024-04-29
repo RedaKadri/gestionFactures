@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
 // * Define the header component for the PDF document.
 const Header = () => (
 	<View style={styles.header}>
-		<Text style={styles.headerContent}>Sté JIHAD ALMOHASSIB</Text>
+		<Text style={styles.headerContent}>Société JIHAD ALMOHASSIB</Text>
 	</View>
 );
 
@@ -168,7 +168,7 @@ export default function PdfLink({ facture }: { facture: any }) {
 		<PDFDownloadLink document={<MyPDFDocument facture={facture} />} fileName={`facture-${facture.id}.pdf`}>
 			{({ loading }) =>
 				loading ? (
-					'Loading...'
+					'Loading'
 				) : (
 					<Button className='flex items-center gap-3 pl-1 pr-10 py-4 h-5' variant='ghost'>
 						<FileText size={16} />
