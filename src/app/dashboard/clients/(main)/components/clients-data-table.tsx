@@ -29,7 +29,7 @@ export default function DataTable({ columns, data }: { columns: ColumnDef<any, u
 		initialState: {
 			pagination: {
 				pageIndex: 0,
-				pageSize: 8,
+				pageSize: 7,
 			},
 		},
 		state: {
@@ -98,7 +98,7 @@ export default function DataTable({ columns, data }: { columns: ColumnDef<any, u
 						) : (
 							<TableRow>
 								<TableCell colSpan={columns.length} className='h-24 text-center'>
-									No results.
+									Aucun résultat.
 								</TableCell>
 							</TableRow>
 						)}

@@ -63,7 +63,7 @@ export default function ClientTable({ columns, data }: { columns: ColumnDef<any,
 						) : (
 							<TableRow>
 								<TableCell colSpan={columns.length} className='h-24 text-center'>
-									No results.
+									Aucun résultat.
 								</TableCell>
 							</TableRow>
 						)}
@@ -78,7 +78,7 @@ export default function ClientTable({ columns, data }: { columns: ColumnDef<any,
 						onClick={() => table.previousPage()}
 						disabled={!table.getCanPreviousPage()}
 					>
-						Previous
+						Précédent
 					</Button>
 					<Button
 						variant='outline'
@@ -86,7 +86,7 @@ export default function ClientTable({ columns, data }: { columns: ColumnDef<any,
 						onClick={() => table.nextPage()}
 						disabled={!table.getCanNextPage()}
 					>
-						Next
+						Suivant
 					</Button>
 				</div>
 			</div>

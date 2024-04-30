@@ -17,7 +17,7 @@ export const LoginSchema = z.object({
 });
 
 export const ClientSchema = z.object({
-	id: z.string().min(1),
+	id: z.string().min(1, 'code doit pas être vide'),
 	name: z.string().min(3),
 	tel: z.string().min(8),
 });

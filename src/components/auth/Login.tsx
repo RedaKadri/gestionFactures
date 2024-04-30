@@ -11,7 +11,6 @@ import { LoginSchema } from '@/types';
 import { signIn } from '@/actions/auth.action';
 import { toast } from '../ui/use-toast';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 
 const LoginForm = () => {
 	const router = useRouter();

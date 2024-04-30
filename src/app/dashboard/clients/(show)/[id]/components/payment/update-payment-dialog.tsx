@@ -14,7 +14,7 @@ export default function PaymentUpdateDialog({ payment }: { payment: any }) {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button className='flex items-center gap-4  pr-[59px] pl-1 py-4 mt-1 h-5' variant='ghost'>
+				<Button className='flex items-center gap-4 pr-[59px] pl-1 py-4 mt-1 h-5' variant='ghost'>
 					<Pencil size={16} className='w-3 h-3' />
 					Modifier
 				</Button>

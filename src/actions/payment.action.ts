@@ -32,7 +32,7 @@ export async function createPayment(
 
 			// Check if the new total amount is greater than the facture total amount
 			if ((payments.payments || 0) + values.amount > facture.totalAmount) {
-				throw new Error('Le montant de la facture est insuffisant');
+				throw new Error('La somme des paiements est supérieure au montant de la facture.');
 			}
 
 			// Calculate the new status of the facture based on the total amount of payments
@@ -83,7 +83,7 @@ export async function updatePayment(
 
 			// Check if the new total amount is greater than the facture total amount
 			if ((payments.payments || 0) + values.amount > facture.totalAmount) {
-				throw new Error('Le montant de la facture est insuffisant');
+				throw new Error('La somme des paiements est supérieure au montant de la facture.');
 			}
 
 			await tx.update(paymentTable).set(values).where(eq(paymentTable.id, values.id));

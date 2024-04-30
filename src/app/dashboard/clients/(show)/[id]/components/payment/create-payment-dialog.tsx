@@ -7,7 +7,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from '@/components/ui/dialog';
-import { HandCoins, Plus } from 'lucide-react';
+import { HandCoins } from 'lucide-react';
 import CreatePaymentForm from './create-payment-form';
 
 export default function PaymentCreateDialog({ factureId }: { factureId: string }) {

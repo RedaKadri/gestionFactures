@@ -36,7 +36,7 @@ export async function updateFacture(
 				.where(eq(paymentTable.factureId, values.id));
 
 			if (facturePayments.payments > values.totalAmount) {
-				throw new Error('Le montant de la facture est insuffisant');
+				throw new Error('La somme des paiements est supérieure au montant de la facture');
 			}
 
 			const status = facturePayments.payments === values.totalAmount ? 'payé' : 'en attente';

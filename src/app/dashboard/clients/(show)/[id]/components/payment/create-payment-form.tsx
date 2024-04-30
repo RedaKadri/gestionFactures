@@ -65,7 +65,7 @@ const CreatePaymentForm = ({ factureId }: { factureId: string }) => {
 					name='amount'
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Montant </FormLabel>
+							<FormLabel>Montant</FormLabel>
 							<FormControl>
 								<Input {...field} />
 							</FormControl>
