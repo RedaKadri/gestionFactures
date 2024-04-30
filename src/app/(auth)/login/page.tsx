@@ -16,7 +16,7 @@ export default async function Login() {
 					<div className='grid gap-2 text-center'>
 						<h1 className='text-3xl font-bold'>Login</h1>
 						<p className='text-balance text-muted-foreground'>
-							Saisissez votre nom d'utilisateur ci-dessous pour vous connecter à votre compte.
+							Saisissez votre identifiant ci-dessous pour vous connecter à votre compte.
 						</p>
 					</div>
 					<LoginForm />
