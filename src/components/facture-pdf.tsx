@@ -1,9 +1,11 @@
 'use client';
 
+import { ClientContext } from '@/app/dashboard/clients/(show)/client-provider';
 import { Button } from '@/components/ui/button';
 import { formatCurrency } from '@/lib/utils';
 import { Document, Page, Text, View, StyleSheet, PDFDownloadLink } from '@react-pdf/renderer';
 import { FileText } from 'lucide-react';
+import { useContext } from 'react';
 
 // * Define the styles for the PDF document.
 const styles = StyleSheet.create({
@@ -89,21 +91,23 @@ const Header = () => (
 );
 
 // * Define the invoice information component for the PDF document.
-const InvoiceInfo = ({ facture }: { facture: any }) => (
-	<>
-		<View style={styles.invoiceInfo}>
-			<Text style={styles.invoice}>Facture</Text>
-		</View>
-		<View style={styles.invoiceInfo}>
-			<View>
-				<Text style={styles.infoCell}>Code de facture: {facture.id}</Text>
-				<Text style={styles.infoCell}>Année de facture: {facture.issueYear}</Text>
-				<Text style={styles.infoCell}>Montant de facture: {formatCurrency(facture.totalAmount)}</Text>
-				<Text style={{ marginTop: 3, fontSize: 10 }}>Code de client: {facture.clientId}</Text>
+const InvoiceInfo = ({ facture, clientName }: { facture: any; clientName: string }) => {
+	return (
+		<>
+			<View style={styles.invoiceInfo}>
+				<Text style={styles.invoice}>Facture</Text>
 			</View>
-		</View>
-	</>
-);
+			<View style={styles.invoiceInfo}>
+				<View>
+					<Text style={{ marginTop: 3, fontSize: 10 }}>Client: {clientName}</Text>
+					<Text style={styles.infoCell}>Code de facture: {facture.id}</Text>
+					<Text style={styles.infoCell}>Année de facture: {facture.issueYear}</Text>
+					<Text style={styles.infoCell}>Montant de facture: {formatCurrency(facture.totalAmount)}</Text>
+				</View>
+			</View>
+		</>
+	);
+};
 
 // * Define the table component for the PDF document.
 const TableHeader = () => (
@@ -134,21 +138,19 @@ const Footer = () => (
 		<Text style={{ fontSize: 8, textAlign: 'center' }}>
 			Address: Etage N°1 Appt N°2 Immeuble NIAS Rue Ahmed Taib Benhima Ville Nouvelle - Safi
 		</Text>
-		<Text style={{ fontSize: 8, textAlign: 'center' }}>
-			Tél: 06 61 51 45 92 <Text style={{ stroke: 'black', fontWeight: 'extrabold' }}>/</Text> 05 40 05 94 42
-		</Text>
+		<Text style={{ fontSize: 8, textAlign: 'center' }}>Tél: 06 61 51 45 92</Text>
 	</View>
 );
 
 // * Define the PDF document component.
-const MyPDFDocument = ({ facture }: { facture: any }) => {
+const MyPDFDocument = ({ facture, clientName }: { facture: any; clientName: string }) => {
 	const total = facture.payments.reduce((payments: any[], payment: any) => payments + payment.amount, 0);
 	const reste = facture.totalAmount - total;
 	return (
 		<Document>
 			<Page size={'A4'} style={styles.page}>
 				<Header />
-				<InvoiceInfo facture={facture} />
+				<InvoiceInfo facture={facture} clientName={clientName} />
 				<View style={styles.tableContainer}>
 					<TableHeader />
 					{facture.payments.map((payment: any) => (
@@ -164,8 +166,12 @@ const MyPDFDocument = ({ facture }: { facture: any }) => {
 };
 
 export default function PdfLink({ facture }: { facture: any }) {
+	const { clientName } = useContext(ClientContext);
 	return (
-		<PDFDownloadLink document={<MyPDFDocument facture={facture} />} fileName={`facture-${facture.id}.pdf`}>
+		<PDFDownloadLink
+			document={<MyPDFDocument facture={facture} clientName={clientName} />}
+			fileName={`facture-${facture.id}.pdf`}
+		>
 			{({ loading }) =>
 				loading ? (
 					'Loading'

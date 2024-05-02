@@ -1,10 +1,20 @@
+'use client';
+
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { FilePlus2, KeyRound, Phone, User, UserCheck } from 'lucide-react';
 import ClientUpdateDialog from './update-client-dialog';
 import ClientDeleteDialog from './delete-client-dialog';
 import FactureCreateDialog from '../facture/create-facture-dialog';
+import { useContext, useEffect } from 'react';
+import { ClientContext } from '../../../client-provider';
 
 export default function ClientDetail({ client }: { client: any }) {
+	const { updateClientName } = useContext(ClientContext);
+
+	useEffect(() => {
+		updateClientName(client.name);
+	}, [client]);
+
 	return (
 		<div className='min-w-[350px] mt-12 flex 2xl:flex-col gap-5 justify-center items-center'>
 			<Card className='w-full'>
