@@ -2,7 +2,7 @@
 
 import { createContext, useState } from 'react';
 
-export const ClientContext = createContext<object | null>(null);
+export const ClientContext = createContext<any>(null);
 
 export function ClientProvider({ children }: { children: React.ReactNode }) {
 	const [clientName, setClientName] = useState<string | null>(null);

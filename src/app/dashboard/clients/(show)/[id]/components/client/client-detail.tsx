@@ -13,7 +13,7 @@ export default function ClientDetail({ client }: { client: any }) {
 
 	useEffect(() => {
 		updateClientName(client.name);
-	}, [client]);
+	}, [client, updateClientName]);
 
 	return (
 		<div className='min-w-[350px] mt-12 flex 2xl:flex-col gap-5 justify-center items-center'>

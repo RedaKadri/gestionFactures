@@ -92,6 +92,8 @@ const Header = () => (
 
 // * Define the invoice information component for the PDF document.
 const InvoiceInfo = ({ facture, clientName }: { facture: any; clientName: string }) => {
+	const today = new Date();
+	const fullDate = today.toLocaleDateString('en-GB');
 	return (
 		<>
 			<View style={styles.invoiceInfo}>
@@ -99,10 +101,13 @@ const InvoiceInfo = ({ facture, clientName }: { facture: any; clientName: string
 			</View>
 			<View style={styles.invoiceInfo}>
 				<View>
-					<Text style={{ marginTop: 3, fontSize: 10 }}>Client: {clientName}</Text>
+					<Text style={{ marginBottom: 3 }}>Client: {clientName}</Text>
 					<Text style={styles.infoCell}>Code de facture: {facture.id}</Text>
 					<Text style={styles.infoCell}>Année de facture: {facture.issueYear}</Text>
 					<Text style={styles.infoCell}>Montant de facture: {formatCurrency(facture.totalAmount)}</Text>
+				</View>
+				<View>
+					<Text>Date de creation: {fullDate}</Text>
 				</View>
 			</View>
 		</>
@@ -138,7 +143,8 @@ const Footer = () => (
 		<Text style={{ fontSize: 8, textAlign: 'center' }}>
 			Address: Etage N°1 Appt N°2 Immeuble NIAS Rue Ahmed Taib Benhima Ville Nouvelle - Safi
 		</Text>
-		<Text style={{ fontSize: 8, textAlign: 'center' }}>Tél: 06 61 51 45 92</Text>
+		<Text style={{ fontSize: 8, textAlign: 'center' }}>Tél: 06 61 51 45 92 / 06 65 24 63 72</Text>
+		<Text style={{ fontSize: 8, textAlign: 'center' }}>Email: Jihad.almohassib@gmail.com</Text>
 	</View>
 );
 
